@@ -9,7 +9,6 @@ DB_NAME = 'global_trades_csv'
 
 if __name__ == '__main__':
     client = MongoClient('localhost', 27017)
-    client.drop_database("global_trades_csv")
     folder, _ = os.path.split(__file__)
     i = 1
     queries_folder = os.path.realpath(folder + '/../queries')

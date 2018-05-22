@@ -1,6 +1,6 @@
-var before = new Date()
+var before = new Date();
 
-db.countries.aggregate(
+printjson(db.countries.aggregate(
     [
         {
             $match : {
@@ -41,6 +41,8 @@ db.countries.aggregate(
             }
         }
     ]
-)
+)['_batch'])
 
 execution_mills = (new Date()) - before
+
+print("Seconds the query took: " + (execution_mills / 1000))
