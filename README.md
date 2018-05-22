@@ -5,7 +5,7 @@ Dataset: [Global Commodity Trade Statistics](https://www.kaggle.com/unitednation
 
 
 ## Abstract
-Comparison between the performances of MongoDB and Neo4J whilst working with a huge dataset representing trades statistics for many countries.
+Comparison between the performances of MongoDB with and without indexes whilst working with a huge dataset representing trades statistics for many countries.
 
 ## MongoDB structure
 * One database
