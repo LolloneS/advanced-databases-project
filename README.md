@@ -2,7 +2,6 @@
 # Global Commodity Trade Statistics 
 
 Dataset: [Global Commodity Trade Statistics](https://www.kaggle.com/unitednations/global-commodity-trade-statistics) by [United Nations](https://www.kaggle.com/unitednations)
-~45 minutes to parse and import the data
 
 
 ## Abstract
@@ -13,7 +12,7 @@ Comparison between the performances of MongoDB and Neo4J whilst working with a h
 * One collection
 
 Document structure (example):
-```json
+```js
 {
 	"_id" : ObjectId("5b03f43b423dfaf4de96cfe6"),
 	"country_or_area" : "Afghanistan",
@@ -30,7 +29,7 @@ Document structure (example):
 
 ```
 
-## Queries
+## Queries (?)
 #### 1. Find for each year the country whose Export gain is highest
 
 #### 2. For each year, find the country which traded more kilograms of *010511*
