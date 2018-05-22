@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from pymongo import MongoClient
 from subprocess import call
 import os
 import time
@@ -8,7 +7,6 @@ DB_NAME = 'global_trades_csv'
 
 
 if __name__ == '__main__':
-    client = MongoClient('localhost', 27017)
     folder, _ = os.path.split(__file__)
     i = 1
     queries_folder = os.path.realpath(folder + '/../queries')

@@ -1,3 +1,5 @@
+// 1. Find for each year the country whose Export gain is highest
+
 var before = new Date();
 
 printjson(db.countries.aggregate(

@@ -1,3 +1,5 @@
+// 2. For each year, find the country which traded more kilograms of *010511*
+
 var before = new Date();
 
 printjson(db.countries.aggregate(
