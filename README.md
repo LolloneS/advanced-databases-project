@@ -5,7 +5,7 @@ Dataset: [Global Commodity Trade Statistics](https://www.kaggle.com/unitednation
 
 
 ## Abstract
-Comparison between the performances of MongoDB with and without indexes whilst working with a huge dataset representing trades statistics for many countries.
+Comparison between the performances of MongoDB and MySQL with and without indexes whilst working with a huge dataset (~1GB, 8+ million rows) representing trades statistics for many countries.
 
 ## MongoDB structure
 * One database
@@ -32,17 +32,16 @@ Document structure (example):
 ## Queries (?)
 #### 1. Find for each year the country whose Export gain is highest
 
-#### 2. For each year, find the country which traded more kilograms of *010511*
+#### 2. For each year, find the country which traded more kilograms of *10511*
 
 #### 3. Find the year in which more money was traded across all countries
 
 #### 4. Find the most expensive trade for every year and for each country 
 
-#### 5. Find out whether Italy traded 010600
+#### 5. Find all the countries that have not traded 010600 or 010519 in 1998
 
-#### 6. Find all the countries that have not traded 010600 or 010519 in 1998
+#### 6. Find out whether Canada traded more "Sheep, live" or "Goats, live"
 
-#### 7. Find out whether Albania traded more "Sheep, live" or "Goat, live"
 
 
 
