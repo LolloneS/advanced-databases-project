@@ -2,7 +2,7 @@
 
 var before = new Date();
 
-printjson(db.countries.aggregate(
+printjson(db.trades.aggregate(
     [
         { 
             $group : {

@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 
-
 from subprocess import call
 import os
-import time
 
+DB_NAME = 'global_trades'
 
-DB_NAME = 'global_trades_csv'
-
-if __name__ == '__main__':
+def run_queries():
     folder, _ = os.path.split(__file__)
     queries_folder = os.path.realpath(folder + '/../queries')
     queries = os.listdir(queries_folder)
@@ -20,3 +17,8 @@ if __name__ == '__main__':
             params = ['mongo', DB_NAME, queries_folder + '/' + filename]
             call(params)
             i += 1
+
+
+
+if __name__ == '__main__':
+    run_queries()

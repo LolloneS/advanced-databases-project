@@ -1,9 +1,9 @@
-// 6. Find out whether Canada traded more "Sheep, live" or "Goats, live"
+// 4. Find out whether Canada traded more "Sheep, live" or "Goats, live"
 
 var before = new Date();
 
 
-printjson(db.countries.aggregate(
+printjson(db.trades.aggregate(
     [
         {
             $match : {
