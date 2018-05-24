@@ -1,0 +1,4 @@
+{
+        "DB_NAME" : "global_trades",
+        "COLLECTION_NAME" : "trades"
+}

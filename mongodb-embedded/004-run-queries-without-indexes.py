@@ -12,7 +12,7 @@ def run_queries():
     queries.sort()
     i = 1
     for filename in queries:
-        if 'mongo' in filename:
+        if 'mongo-embedded' in filename:
             print("Running script number " + str(i))
             params = ['mongo', DB_NAME, queries_folder + '/' + filename]
             call(params)
