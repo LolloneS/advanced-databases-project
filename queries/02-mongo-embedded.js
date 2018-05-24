@@ -6,13 +6,13 @@ printjson(db.trades.aggregate(
     [
         {
             $match : {
-                "comm_code" : 10511,
+                "commodity.code" : 10511,
             }
         },
         {
             $group : {
                 "_id" : {country_or_area : "$country_or_area", year : "$year"},
-                "total_weight" : {$sum : "$weight_kg"}
+                "total_weight" : {$sum : "$trade_details.weight_kg"}
             }
         },
         {

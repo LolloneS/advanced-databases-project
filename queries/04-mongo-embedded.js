@@ -8,7 +8,7 @@ printjson(db.trades.aggregate(
         {
             $match : {
                 "country_or_area" : "Canada",
-                "commodity" : {$in : ["Sheep, live", "Goats, live"]}
+                "commodity.name" : {$in : ["Sheep, live", "Goats, live"]}
             }
         },
         {
@@ -17,8 +17,10 @@ printjson(db.trades.aggregate(
                 "sheeps" : {
                     "$sum" : {
                         "$cond" : [
-                            {"$eq" : ["$commodity", "Sheep, live"]},
-                            "$quantity",
+                            {
+                                "$eq" : ["$commodity.name", "Sheep, live"]
+                            },
+                            "$trade_details.quantity",
                             0
                         ]
                     }
@@ -26,8 +28,10 @@ printjson(db.trades.aggregate(
                 "goats" : {
                     "$sum" : {
                         "$cond" : [
-                            {"$eq" : ["$commodity", "Goats, live"]},
-                            "$quantity",
+                            {
+                                "$eq" : ["$commodity.name", "Goats, live"]
+                            },
+                            "$trade_details.quantity",
                             0
                         ]
                     }

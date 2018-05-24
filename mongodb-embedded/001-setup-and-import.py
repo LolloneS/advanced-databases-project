@@ -3,24 +3,71 @@
 
 from pymongo import MongoClient
 from subprocess import call
-import os, json
+import os, json, csv, itertools
 from time import time
 
-
-def import_data():
+def parse_data():
     client = MongoClient('localhost', 27017)
     folder, _ = os.path.split(__file__)
-    dataset = folder + "/../dataset/commodity_trade_statistics_data.csv"
     global_names = json.load(open(os.path.join(folder, "globals.json")))
     client.drop_database(global_names["DB_NAME"])
-    start_time = time()
-    '''
-    call(['mongoimport', '-d', global_names["DB_NAME"], '-c', global_names["COLLECTION_NAME"], 
-          '--drop', '--ignoreBlanks', '--type', 'csv', '--headerline', '--file', 
-          dataset])
-    '''
-    print("Importing 8+ million rows, ~1GB dataset took %s seconds" % (time() - start_time))
+    db = client[global_names["DB_NAME"]]
+    collection = db[global_names["COLLECTION_NAME"]]
+    dataset = folder + "/../dataset/commodity_trade_statistics_data.csv"
+    with open(dataset) as csvfile:
+        trades = csv.DictReader(csvfile, delimiter=",")
+        i = 0
+        to_insert = []
+        start_time = time()
+        for row in trades:
+            # sistema le commodity
+            commodity = {
+                "name" : row["commodity"],
+                "code" : row["comm_code"],
+                "category" : row["category"]
+            }
+           
+            row["commodity"] = commodity
+            del row["comm_code"]
+            del row["category"]
+
+
+            # sistema i trade details    
+            trade_details = {}
+            if row["flow"]:
+                trade_details["flow"] = row["flow"]
+            if row["weight_kg"] != '':
+                trade_details["weight_kg"] = int(row["weight_kg"])
+            if row["weight_kg"] != '':
+                trade_details["trade_usd"] = int(row["trade_usd"])
+            if row["quantity"] != '':
+                trade_details["quantity"] = int(eval(row["quantity"]))
+            if row["quantity_name"] != '':
+                trade_details["quantity_name"] = row["quantity_name"]
+
+            row["trade_details"] = trade_details
+            del row["flow"]
+            del row["weight_kg"]
+            del row["trade_usd"]
+            del row["quantity"]
+            del row["quantity_name"]
+
+            to_insert.append(row)
+
+            if (i == 10000):
+                collection.insert_many(to_insert)
+                to_insert = []
+                i = 0
+
+            i += 1
+        
+        if len(to_insert) > 0:
+            collection.insert_many(to_insert)
+            to_insert = []
+
+    print("Importing 8+ million rows, ~1GB dataset took %s seconds" % (time() - start_time))        
+
 
 
 if __name__ == '__main__':
-    import_data()
+    parse_data()

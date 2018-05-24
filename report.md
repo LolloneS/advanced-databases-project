@@ -59,6 +59,32 @@ Every document represents a single trade.
 
 
 
+#### Sample document
+
+```json
+{
+    "_id" : ObjectId("5b06df5f0cea1a1aa46b4ce2"),
+ 	"country_or_area" : "Afghanistan",
+ 	"year" : "2016",
+ 	"commodity" : {
+        "name" : "Sheep, live",
+        "code" : "010410",
+        "category" : "01_live_animals"
+    },
+ 	"trade_details" : {
+        "flow" : "Export",
+        "weight_kg" : "2339",
+        "trade_usd" : "6088",
+        "quantity" : "51",
+        "quantity_name" : "Number of items"
+    }
+}    
+```
+
+
+
+
+
 ## Two collections with references
 
 ### Document structure (example)

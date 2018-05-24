@@ -6,13 +6,13 @@ printjson(db.trades.aggregate(
     [
         {
             $match : {
-                "flow" : "Export"
+                "trade_details.flow" : "Export"
             }
         },
         {
             $group : {
                 "_id" : {country_or_area : "$country_or_area", year : "$year"},
-                "total_cash" : {$sum : "$trade_usd"}
+                "total_cash" : {$sum : "$trade_details.trade_usd"}
             }
         },
         {

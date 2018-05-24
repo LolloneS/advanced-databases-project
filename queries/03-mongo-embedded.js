@@ -10,7 +10,7 @@ printjson(db.trades.aggregate(
                         year : "$year"
                 },
                 "money_aggregated" : {
-                    $sum : "$trade_usd"
+                    $sum : "$trade_details.trade_usd"
                 }
             }
         },
