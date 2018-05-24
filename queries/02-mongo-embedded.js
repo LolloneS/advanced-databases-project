@@ -1,4 +1,4 @@
-// 2. For each year, find the country which traded more kilograms of *10511*
+// 2. For each year, find the country which traded more kilograms of *010511*
 
 var before = new Date();
 
@@ -6,7 +6,7 @@ printjson(db.trades.aggregate(
     [
         {
             $match : {
-                "commodity.code" : 10511,
+                "commodity.code" : "010511",
             }
         },
         {

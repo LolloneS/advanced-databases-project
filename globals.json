@@ -1,0 +1,7 @@
+{
+        "DB_NAME" : "global_trades",
+        "DB_NAME_REF" : "global_trades_ref",
+        "COLLECTION_NAME" : "trades",
+        "COLLECTION_NAME_REF_1" : "trades_ref",
+        "COLLECTION_NAME_REF_2" : "commodities_ref"
+}

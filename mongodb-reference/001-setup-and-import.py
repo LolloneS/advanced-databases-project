@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-
-from pymongo import MongoClient
+from pymongo import MongoClient, errors
 from subprocess import call
 import json, csv, itertools
 from os.path import dirname, abspath, join
@@ -11,27 +10,30 @@ def parse_data():
     client = MongoClient('localhost', 27017)
     parent_folder = join(dirname(dirname(abspath(__file__))))
     global_names = json.load(open(join(parent_folder, "globals.json")))
-    client.drop_database(global_names["DB_NAME"])
-    db = client[global_names["DB_NAME"]]
-    collection = db[global_names["COLLECTION_NAME"]]
+    client.drop_database(global_names["DB_NAME_REF"])
+    db = client[global_names["DB_NAME_REF"]]
+    trades_ref = db[global_names["COLLECTION_NAME_REF_1"]]
+    commodities_ref = db[global_names["COLLECTION_NAME_REF_2"]]
     dataset = join(parent_folder, "dataset/commodity_trade_statistics_data.csv")
     with open(dataset) as csvfile:
         trades = csv.DictReader(csvfile, delimiter=",")
         i = 0
-        to_insert = []
+        trades_to_insert = []
+        commodities_to_insert = []
         start_time = time()
-        for row in trades:    
+        for row in trades:
             # sistema le commodity
             commodity = {
                 "name" : row["commodity"],
                 "code" : row["comm_code"],
                 "category" : row["category"]
             }
-           
-            row["commodity"] = commodity
-            del row["comm_code"]
+
+            del row["commodity"]
             del row["category"]
 
+            if commodity not in commodities_to_insert:
+                commodities_to_insert.append(commodity)
 
             # sistema i trade details    
             trade_details = {}
@@ -54,18 +56,22 @@ def parse_data():
             del row["quantity"]
             del row["quantity_name"]
 
-            to_insert.append(row)
 
-            if (i == 10000):
-                collection.insert_many(to_insert)
-                to_insert = []
+            trades_to_insert.append(row)
+
+            if (i == 1000):
+                result = trades_ref.insert_many(trades_to_insert)
+                trades_to_insert = []
                 i = 0
 
             i += 1
         
         if len(to_insert) > 0:
-            collection.insert_many(to_insert)
-            to_insert = []
+            trades_ref.insert_many(trades_to_insert)
+            trades_to_insert = []
+        
+        # da fixare con una upsert?
+        commodities_ref.insert_many(commodities_to_insert)
 
     print("Importing 8+ million rows, ~1GB dataset took %s seconds" % (time() - start_time))        
 
