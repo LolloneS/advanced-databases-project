@@ -3,8 +3,7 @@
 # Lorenzo Soligo - 806954
 
 ## Abstract
-Comparison between the performances of MongoDB and MySQL with and without indexes whilst working with a huge dataset (~1GB, 8+ million rows) representing trades statistics for many countries.
-
+Comparison between the performances of MongoDB using references and MongoDB using a one-collection structure, with and without indexes, whilst working with a huge dataset (~1GB, 8+ million rows) representing trades statistics for many countries.
 
 ## Dataset
 [Global Commodity Trade Statistics](https://www.kaggle.com/unitednations/global-commodity-trade-statistics) by [United Nations](https://www.kaggle.com/unitednations)
@@ -36,16 +35,15 @@ The dataset fields are:
 ### Modeling the dataset
 Luckily, the dataset is well structured. This let me work with it without worrying too much about preprocessing the data.
 
-In MongoDB, I simply needed to import the CSV as-is with `mongoimport`. This turned out to be a huge help: I ran some tests involving preprocessing the data (using Python3 and PyMongo) and importing the data took many times the time it takes with `mongoimport`.
+I will use MongoDB with two different philosophies:
+1. using a single collection: in this case, I will simply need to import the CSV as-is with `mongoimport`. This will be of great help, since the performances are great.
 
-In MySQL, I decided to split the dataset and put the fields `commodity`, `comm_code` and `category` in a table `commodity`, using `comm_code` as the primary key. This let me save some space, since the same commodities (and relative codes/categories) are often repeated thousands of times.
+2. using multiple collections: in this case, I will need to split the dataset and put the fields `commodity`, `comm_code` and `category` in a collection named `commodity`, using `comm_code` as the ID. This will let me save some space, since the same commodities (and relative codes/categories) are often repeated thousands of times.
 
 
 
 
-## MongoDB
-* One database
-* One collection (*countries*)
+## Single collection
 
 ### Document structure (example):
 ```js
@@ -66,18 +64,12 @@ In MySQL, I decided to split the dataset and put the fields `commodity`, `comm_c
 
 
 
-## MySQL
+## Two collections with references
 
-* One database
-* Two tables: 
-  * `commodities`: *comm_code*, commodity, category 
-  * `trades`: *id*, country_or_area, year, flow, trade_usd, weight_kg, quantity_name, quantity
-
-
-
+### Document structure (example)
 ## Import time
 
-|           MongoDB            | MySQL |
+|           Single collection            | Two collections |
 | :--------------------------: | :---: |
 | ~3min 30s with `mongoimport` | TODO  |
 
@@ -102,28 +94,28 @@ Indexes I created:
 
 
 #### 1. Find for each year the country whose Export gain is highest
-Indexes \ DB   |            MongoDB          |  MySQL 
+Indexes \ DB   |            Single collection      |  Two collections
 ---------------|:---------------------------:|:------:
 **With Indexes**   | 6.4s, |  TODO  
 **Without Indexes**| 7.0s, 6.9s |  TODO  
 
 
 #### 2. For each year, find the country which traded more kilograms of *10511*
-Indexes \ DB   |            MongoDB          |  MySQL 
+Indexes \ DB   |            Single collection      |  Two collections
 ---------------|:---------------------------:|:------:
 **With Indexes**   |   0.02s,   |  TODO  
 **Without Indexes**| 3.5s, 3.7s |  TODO  
 
 
 #### 3. Find the year in which more money was traded across all countries
-Indexes \ DB   |            MongoDB          |  MySQL 
+Indexes \ DB   |            Single collection      |  Two collections
 ---------------|:---------------------------:|:------:
 **With Indexes**   |   7.6s,   |  TODO  
 **Without Indexes**| 7.6s, 8.8s |  TODO  
 
 
 #### 4. Find out whether Canada traded more sheeps or goats alive
-Indexes \ DB   |            MongoDB          |  MySQL 
+Indexes \ DB   |            Single collection      |  Two collections
 ---------------|:---------------------------:|:------:
 **With Indexes**   |   0.2s   |  TODO  
 **Without Indexes**| 3.1s, 4.8s |  TODO  
