@@ -20,7 +20,7 @@ def run_queries():
     i = 1
     for filename in queries:
         if 'mongo-reference' in filename:
-            results.write("Running script number " + str(i))
+            results.write("Running script number " + str(i) + "\n")
             params = ['mongo', DB_NAME, queries_folder + '/' + filename]
             start_time = time()
             call(params)

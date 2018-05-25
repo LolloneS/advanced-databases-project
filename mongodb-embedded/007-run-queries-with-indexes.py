@@ -17,9 +17,9 @@ def create_trades_indexes():
     fields_to_index = ('year', 'country_or_area', 'commodity.name', 'commodity.code')
     for i in fields_to_index:
         start_time = time()
-        results.write("Creating index on {}".format(i))
+        results.write("Creating index on {}\n".format(i))
         trades.create_index(i)
-        results.write("Index on {} created. Took {} seconds".format(i, (time() - start_time)))
+        results.write("Index on {} created. Took {} seconds\n".format(i, (time() - start_time)))
     
 
 

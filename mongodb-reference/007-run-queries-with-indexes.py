@@ -22,9 +22,9 @@ def create_trades_indexes():
     for k, v in fields_to_index:
         for j in v:
             start_time = time()
-            results.write("Creating index on {}".format(j))
+            results.write("Creating index on {}\n".format(j))
             k.create_index(i)
-            results.write("Index on {} created. Took {} seconds".format(i, (time() - start_time)))
+            results.write("Index on {} created. Took {} seconds\n".format(i, (time() - start_time)))
     
 
 if __name__ == '__main__':

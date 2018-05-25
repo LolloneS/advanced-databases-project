@@ -69,7 +69,7 @@ def parse_data():
             collection.insert_many(to_insert)
             to_insert = []
 
-    results.write("Importing 8+ million rows, ~1GB dataset took %s seconds" % (time() - start_time))        
+    results.write("Importing 8+ million rows, ~1GB dataset took %s seconds\n" % (time() - start_time))        
 
 
 if __name__ == '__main__':
