@@ -15,11 +15,12 @@ def parse_data():
     trades_ref = db[global_names["COLLECTION_NAME_REF_1"]]
     commodities_ref = db[global_names["COLLECTION_NAME_REF_2"]]
     dataset = join(parent_folder, "dataset/commodity_trade_statistics_data.csv")
+    
     with open(dataset) as csvfile:
         trades = csv.DictReader(csvfile, delimiter=",")
         i = 0
         trades_to_insert = []
-        commodities_to_insert = []
+        commodities_to_insert = set()
         start_time = time()
         for row in trades:
             # sistema le commodity
@@ -32,8 +33,7 @@ def parse_data():
             del row["commodity"]
             del row["category"]
 
-            if commodity not in commodities_to_insert:
-                commodities_to_insert.append(commodity)
+            commodities_to_insert.add(tuple(commodity.items()))
 
             # sistema i trade details    
             trade_details = {}
@@ -56,22 +56,19 @@ def parse_data():
             del row["quantity"]
             del row["quantity_name"]
 
-
             trades_to_insert.append(row)
 
-            if (i == 1000):
+            if (i == 10000):
                 result = trades_ref.insert_many(trades_to_insert)
                 trades_to_insert = []
                 i = 0
-
             i += 1
         
-        if len(to_insert) > 0:
+        if len(trades_to_insert) > 0:
             trades_ref.insert_many(trades_to_insert)
             trades_to_insert = []
         
-        # da fixare con una upsert?
-        commodities_ref.insert_many(commodities_to_insert)
+        commodities_ref.insert_many(list(dict(i) for i in list(commodities_to_insert)))
 
     print("Importing 8+ million rows, ~1GB dataset took %s seconds" % (time() - start_time))        
 

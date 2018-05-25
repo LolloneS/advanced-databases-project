@@ -116,9 +116,15 @@ The rows will be thus splitted in two collections this way:
 
 ## Time spent to parse and import the dataset
 
-|            Single collection            | Two collections |
-| :-------------------------------------: | :-------------: |
-| Using a Python script and PyMongo: 420s |      TODO       |
+|    Single collection    | Two collections |
+| :---------------------: | :-------------: |
+|          390s           |      360s       |
+
+
+## DB size once imported
+|    Single collection    | Two collections |
+| :---------------------: | :-------------: |
+|        0.77GB           |     0.55GB      |
 
 
 
