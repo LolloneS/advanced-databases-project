@@ -12,31 +12,18 @@ printjson(db.trades.aggregate(
             }
         },
         {
+            $project : {
+                "_id" : 0,
+                "name" : "$commodity.name",
+                "quantity" : "$trade_details.quantity"
+            }
+        },
+        {
             $group: {
-                "_id" : "$country_or_area",
-                "sheeps" : {
-                    "$sum" : {
-                        "$cond" : [
-                            {
-                                "$eq" : ["$commodity.name", "Sheep, live"]
-                            },
-                            "$trade_details.quantity",
-                            0
-                        ]
-                    }
-                },
-                "goats" : {
-                    "$sum" : {
-                        "$cond" : [
-                            {
-                                "$eq" : ["$commodity.name", "Goats, live"]
-                            },
-                            "$trade_details.quantity",
-                            0
-                        ]
-                    }
-                },
-                
+                "_id" : "$name",
+                "quantity" : {
+                    "$sum" : "$quantity"
+                }      
             }
         } 
     ]

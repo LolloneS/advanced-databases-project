@@ -61,7 +61,7 @@ Every document represents a single trade.
 
 #### Sample document
 
-```json
+```js
 {
     "_id" : ObjectId("5b06df5f0cea1a1aa46b4ce2"),
  	"country_or_area" : "Afghanistan",
@@ -141,8 +141,8 @@ The rows will be thus splitted in two collections this way:
 
 ## Execution time for the selected queries
 
-#### Computer specs:
-- Intel Core i5-6300U (low voltage laptop CPU)
+#### Laptop specs:
+- Intel Core i5-6300U
 - 8GB RAM DDR4
 - 512GB NVMe SSD 
 
@@ -153,54 +153,54 @@ The rows will be thus splitted in two collections this way:
 | Indexes \ DB        | Embedded | Two collections |
 | ------------------- | :------: | :-------------: |
 | **With Indexes**    |   10s    |      TODO       |
-| **Without Indexes** |   11s    |      TODO       |
+| **Without Indexes** |   11s    |       15s       |
 
 
 #### 2. For each year, find the country which traded more kilograms of *010511*
 | Indexes \ DB        | Embedded | Two collections |
-| ------------------- | :------: | :-------------: |
+| :-----------------: | :------: | :-------------: |
 | **With Indexes**    |  0.05s   |      TODO       |
-| **Without Indexes** |    6s    |      TODO       |
+| **Without Indexes** |    6s    |       4s        |
 
 
 #### 3. Find the year in which more money was traded across all countries
 | Indexes \ DB        | Embedded | Two collections |
-| ------------------- | :------: | :-------------: |
+| :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   14s    |      TODO       |
-| **Without Indexes** |   15s    |      TODO       |
+| **Without Indexes** |   15s    |       14s       |
 
 
 #### 4. Find out whether Canada traded more sheeps or goats alive
 | Indexes \ DB        | Embedded | Two collections |
-| ------------------- | :------: | :-------------: |
+| :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   0.5s   |      TODO       |
-| **Without Indexes** |    7s    |      TODO       |
+| **Without Indexes** |    6s    |       9s        |
 
 #### 5. Find all the countries that have not traded *010600* or *010519* in 1998
 
 | Indexes \ DB        | Embedded | Two collections |
-| ------------------- | :------: | :-------------: |
+| :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   TODO   |      TODO       |
 | **Without Indexes** |   TODO   |      TODO       |
 
 #### 6. Find the most expensive trade for every year and for each country 
 
 | Indexes \ DB        | Embedded | Two collections |
-| ------------------- | :------: | :-------------: |
+| :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   TODO   |      TODO       |
 | **Without Indexes** |   TODO   |      TODO       |
 
 #### 7. Find out whether Italy traded more goats than Canada
 
 | Indexes \ DB        | Embedded | Two collections |
-| ------------------- | :------: | :-------------: |
+| :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   TODO   |      TODO       |
 | **Without Indexes** |   TODO   |      TODO       |
 
 #### 8. Find all the categories
 
 | Indexes \ DB        | Embedded | Two collections |
-| ------------------- | :------: | :-------------: |
+| :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   TODO   |      TODO       |
 | **Without Indexes** |   TODO   |      TODO       |
 
