@@ -1,7 +1,5 @@
 // 1. Find for each year the country whose Export gain is highest
 
-var before = new Date();
-
 printjson(db.trades_ref.aggregate(
     [
         {
@@ -44,7 +42,3 @@ printjson(db.trades_ref.aggregate(
         }
     ]
 )['_batch'])
-
-execution_mills = (new Date()) - before
-
-print("Seconds the query took: " + (execution_mills / 1000))

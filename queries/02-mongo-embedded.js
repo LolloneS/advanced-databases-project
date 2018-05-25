@@ -1,7 +1,5 @@
 // 2. For each year, find the country which traded more kilograms of *010511*
 
-var before = new Date();
-
 printjson(db.trades.aggregate(
     [
         {
@@ -44,7 +42,3 @@ printjson(db.trades.aggregate(
         }
     ]
 )['_batch'])
-
-execution_mills = (new Date()) - before
-
-print("Seconds the query took: " + (execution_mills / 1000))

@@ -10,6 +10,8 @@ def parse_data():
     client = MongoClient('localhost', 27017)
     parent_folder = join(dirname(dirname(abspath(__file__))))
     global_names = json.load(open(join(parent_folder, "globals.json")))
+    results = open(join(parent_folder, "results.txt"), 'a')
+    results.write("Importing the dataset into MongoDB using references \n")
     client.drop_database(global_names["DB_NAME_REF"])
     db = client[global_names["DB_NAME_REF"]]
     trades_ref = db[global_names["COLLECTION_NAME_REF_1"]]
@@ -70,7 +72,7 @@ def parse_data():
         
         commodities_ref.insert_many(list(dict(i) for i in list(commodities_to_insert)))
 
-    print("Importing 8+ million rows, ~1GB dataset took %s seconds" % (time() - start_time))        
+    results.write("Importing 8+ million rows, ~1GB dataset took %s seconds \n" % (time() - start_time))        
 
 
 if __name__ == '__main__':

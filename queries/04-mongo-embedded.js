@@ -1,8 +1,5 @@
 // 4. Find out whether Canada traded more "Sheep, live" or "Goats, live"
 
-var before = new Date();
-
-
 printjson(db.trades.aggregate(
     [
         {
@@ -28,8 +25,3 @@ printjson(db.trades.aggregate(
         } 
     ]
 )['_batch'])
-
-
-execution_mills = (new Date()) - before
-
-print("Seconds the query took: " + (execution_mills / 1000))

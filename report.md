@@ -113,6 +113,35 @@ The rows will be thus splitted in two collections this way:
 * `category`
 
 
+#### Sample document
+**Trade**
+```js
+{
+   "_id":ObjectId("5b081ed80cea1a1a64ca495b"),
+   "country_or_area":"Afghanistan",
+   "year":"2016",
+   "comm_code":"010410",
+   "trade_details":{
+      "flow":"Export",
+      "weight_kg":2339,
+      "trade_usd":6088,
+      "quantity":51,
+      "quantity_name":"Number of items"
+   }
+}
+```
+
+
+**Commodity**
+```js
+{
+   "_id":ObjectId("5b0820620cea1a1a6447cdab"),
+   "name":"Oak or chestnut tanning extract",
+   "code":"320130",
+   "category":"32_tanning_dyeing_extracts_tannins_derivs_pigments_et"
+}
+```
+
 
 ## Time spent to parse and import the dataset
 
@@ -132,7 +161,7 @@ The rows will be thus splitted in two collections this way:
 
 | Field \ Database  | Embedded | Reference |
 | ----------------- | -------- | --------- |
-| `country_or_area` | 32s      | TODO      |
+| `country_or_area` | 32s      | 34s       |
 | `commodity.name`  | 42s      | TODO      |
 | `commodity.code`  | 36s      | TODO      |
 | `year`            | 39s      | TODO      |

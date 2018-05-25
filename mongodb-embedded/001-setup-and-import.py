@@ -11,6 +11,8 @@ def parse_data():
     client = MongoClient('localhost', 27017)
     parent_folder = join(dirname(dirname(abspath(__file__))))
     global_names = json.load(open(join(parent_folder, "globals.json")))
+    results = open(join(parent_folder, "results.txt"), 'a')
+    results.write("Importing the dataset into MongoDB using embedded structure \n")
     client.drop_database(global_names["DB_NAME"])
     db = client[global_names["DB_NAME"]]
     collection = db[global_names["COLLECTION_NAME"]]
@@ -67,7 +69,7 @@ def parse_data():
             collection.insert_many(to_insert)
             to_insert = []
 
-    print("Importing 8+ million rows, ~1GB dataset took %s seconds" % (time() - start_time))        
+    results.write("Importing 8+ million rows, ~1GB dataset took %s seconds" % (time() - start_time))        
 
 
 if __name__ == '__main__':
