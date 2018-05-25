@@ -1,5 +1,0 @@
-Running queries using references and no indexes 
-Running script number 1Took 14.618695259094238 seconds 
-Running script number 2Took 5.912212371826172 seconds 
-Running script number 3Took 15.398252487182617 seconds 
-Running script number 4Took 9.15008020401001 seconds 
