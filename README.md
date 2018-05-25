@@ -1,4 +1,4 @@
-# Advanced Databases 2CFU Project
+# Advanced Databases 2ECTS Project
 # Global Commodity Trade Statistics 
 
 ## Abstract

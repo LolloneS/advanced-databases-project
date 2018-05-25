@@ -1,4 +1,4 @@
-# Advanced Databases 2CFU Project's Report
+# Advanced Databases 2ECTS Project's Report
 # Global Commodity Trade Statistics 
 # Lorenzo Soligo - 806954
 
