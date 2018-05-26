@@ -2,3 +2,4 @@ dataset/commodity_trade_statistics_data.csv
 neo4j/
 *__pycache__*
 results.txt
+log.txt

@@ -16,15 +16,21 @@ def create_trades_indexes():
     trades_ref = db[global_names["COLLECTION_NAME_REF_1"]]
     commodities_ref = db[global_names["COLLECTION_NAME_REF_2"]]
     fields_to_index = {
-        trades_ref : ['year', 'country_or_area'],
-        commodities_ref : ['name', 'code']
+        "trades_ref" : ['year', 'country_or_area'],
+        "commodities_ref" : ['name', 'code']
     }
-    for k, v in fields_to_index:
+
+    map_ref = {
+        "trades_ref" : trades_ref,
+        "commodities_ref" : commodities_ref
+    } 
+    
+    for k, v in fields_to_index.items():
         for j in v:
             start_time = time()
             results.write("Creating index on {}\n".format(j))
-            k.create_index(i)
-            results.write("Index on {} created. Took {} seconds\n".format(i, (time() - start_time)))
+            map_ref[k].create_index(j)
+            results.write("Index on {} created. Took {} seconds\n".format(j, (time() - start_time)))
     results.close()
 
 

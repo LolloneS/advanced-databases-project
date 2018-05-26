@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from subprocess import call
+from time import time
 import json
 from os.path import dirname, abspath, join, split, realpath
 from os import listdir

@@ -10,7 +10,7 @@ from os.path import dirname, abspath, join, realpath, split
 
 def run_queries():
     folder, _ = split(__file__)
-    parent_folder = join(os.path.dirname(dirname(os.path.abspath(__file__))))
+    parent_folder = join(dirname(dirname(abspath(__file__))))
     queries_folder = realpath(join(parent_folder, 'queries'))
     global_names = json.load(open(join(parent_folder, "globals.json")))
     results = open(join(parent_folder, "results.txt"), 'a')
