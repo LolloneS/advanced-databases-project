@@ -114,7 +114,9 @@ The rows will be thus splitted in two collections this way:
 * `category`
 
 
+
 #### Sample document
+
 **Trade**
 ```js
 {
@@ -133,7 +135,9 @@ The rows will be thus splitted in two collections this way:
 ```
 
 
+
 **Commodity**
+
 ```js
 {
    "_id":ObjectId("5b0820620cea1a1a6447cdab"),
@@ -186,25 +190,33 @@ The rows will be thus splitted in two collections this way:
 | **Without Indexes** |   11s    |       15s       |
 
 
+
 #### 2. For each year, find the country which traded more kilograms of *010511*
+
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
 | **With Indexes**    |  0.05s   |      TODO       |
 | **Without Indexes** |    6s    |       4s        |
 
 
+
 #### 3. Find the year in which more money was traded across all countries
+
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   14s    |      TODO       |
 | **Without Indexes** |   15s    |       14s       |
 
 
+
 #### 4. Find out whether Canada traded more sheeps or goats alive
+
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   0.5s   |      TODO       |
 | **Without Indexes** |    6s    |       9s        |
+
+
 
 #### 5. Find all the countries that have not traded *010600* or *010519* in 1998
 
@@ -213,6 +225,8 @@ The rows will be thus splitted in two collections this way:
 | **With Indexes**    |   TODO   |      TODO       |
 | **Without Indexes** |   TODO   |      TODO       |
 
+
+
 #### 6. Find the most expensive trade for every year and for each country 
 
 | Indexes \ DB        | Embedded | Two collections |
@@ -220,12 +234,16 @@ The rows will be thus splitted in two collections this way:
 | **With Indexes**    |   TODO   |      TODO       |
 | **Without Indexes** |   TODO   |      TODO       |
 
+
+
 #### 7. Find out whether Italy traded more goats than Canada
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   TODO   |      TODO       |
 | **Without Indexes** |   TODO   |      TODO       |
+
+
 
 #### 8. Find all the categories
 

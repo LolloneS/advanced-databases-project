@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
 from subprocess import call
-import os, json
-
+import json
+from os.path import dirname, abspath, join, split
+from os import listdir
 
 def run_queries():
-    folder, _ = os.path.split(__file__)
-    parent_folder = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    queries_folder = os.path.realpath(os.path.join(parent_folder, 'queries'))
-    global_names = json.load(open(os.path.join(parent_folder, "globals.json")))
+    folder, _ = split(__file__)
+    parent_folder = join(dirname(dirname(abspath(__file__))))
+    queries_folder = realpath(join(parent_folder, 'queries'))
+    global_names = json.load(open(join(parent_folder, "globals.json")))
     results = open(join(parent_folder, "results.txt"), 'a')
     results.write("Running queries using references and no indexes \n")
-    queries = os.listdir(queries_folder)
+    queries = listdir(queries_folder)
     queries.sort()
     DB_NAME = global_names["DB_NAME"]
     i = 1
@@ -23,7 +24,7 @@ def run_queries():
             call(params)
             results.write("Took %s seconds \n" % (time() - start_time))
             i += 1
-
+    results.close()
 
 
 if __name__ == '__main__':
