@@ -2,7 +2,7 @@
 
 from subprocess import call
 import json
-from os.path import dirname, abspath, join, split
+from os.path import dirname, abspath, join, split, realpath
 from os import listdir
 
 def run_queries():
