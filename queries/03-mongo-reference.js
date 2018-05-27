@@ -20,7 +20,7 @@ printjson(db.trades_ref.aggregate(
         },
         {
             $sort : {
-                "max_money" : -1
+                "money_traded" : -1
             }
         },
         {
