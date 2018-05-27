@@ -7,6 +7,7 @@ import json, csv, itertools
 from os.path import dirname, abspath, join
 from time import time
 
+
 def parse_data():
     client = MongoClient('localhost', 27017)
     parent_folder = join(dirname(dirname(abspath(__file__))))
