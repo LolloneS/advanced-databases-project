@@ -55,4 +55,4 @@ var countries_didnt_trade = (db.trades_ref.aggregate([
     }
 ]).toArray())[0].countries
 
-printjson(countries_didnt_trade)
+print(countries_didnt_trade)
