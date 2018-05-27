@@ -18,13 +18,12 @@ def run_everything():
     for k, v in structure_dirs.items():
         write_result(k)
         scripts_folder = join(dirname(abspath(__file__)), v)
-        print(scripts_folder)
         scripts = listdir(scripts_folder)
         scripts.sort()
         for filename in scripts:
             if ".py" in filename:
                 params = ['python', join(scripts_folder, filename)]
-                print("Calling " + ' '.join(params))
+                write_result("Calling " + ' '.join(params))
                 call(params)
         write_result("\n\n")
         

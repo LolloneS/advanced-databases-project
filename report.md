@@ -152,7 +152,7 @@ The rows will be thus splitted in two collections this way:
 
 |    Single collection    | Two collections |
 | :---------------------: | :-------------: |
-|          341s           |      315s       |
+|         ~350s           |     ~320s       |
 
 
 ## DB size once imported
@@ -166,10 +166,10 @@ The rows will be thus splitted in two collections this way:
 
 | Field \ Database  | Embedded | Reference |
 | ----------------- | -------- | --------- |
-| `country_or_area` | 29s      | 34s       |
-| `commodity.name`  | 41s      | 0.05s      |
-| `commodity.code`  | 34s      | 0.05s      |
-| `year`            | 32s      | 32s       |
+| `country_or_area` | 30s      | 30s       |
+| `commodity.name`  | 41s      | 0.04s     |
+| `commodity.code`  | 35s      | 0.04s     |
+| `year`            | 33s      | 32s       |
 
 
 
@@ -187,7 +187,7 @@ The rows will be thus splitted in two collections this way:
 | Indexes \ DB        | Embedded | Two collections |
 | ------------------- | :------: | :-------------: |
 | **With Indexes**    |   10s    |       10s       |
-| **Without Indexes** |   10s    |       12s       |
+| **Without Indexes** |   13s    |       11s       |
 
 
 
@@ -205,7 +205,7 @@ The rows will be thus splitted in two collections this way:
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
 | **With Indexes**    |   12s    |       12s       |
-| **Without Indexes** |   13s    |       13s       |
+| **Without Indexes** |   12s    |       13s       |
 
 
 
@@ -222,8 +222,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   TODO   |      TODO       |
-| **Without Indexes** |   TODO   |      TODO       |
+| **With Indexes**    |    3s    |       4s        |
+| **Without Indexes** |    12s   |       15s       |
 
 
 
@@ -249,16 +249,15 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |    10s   |      0.3s       |
-| **Without Indexes** |    10s   |       1s        |
+| **With Indexes**    |    10s   |      0.5s       |
+| **Without Indexes** |    10s   |      0.3s       |
 
 
 
 ## Conclusions
-
-
-
-
+As we can see, the queries' execution times are similar given the two structures adopted.
+The embedded structure usually performs slightly better because of the time saved by avoiding the use `lookup` to "join" documents taken from two different collections.
+The structure using references, on the other hand, performs way better when only data about the commodities is analyzed, because 1) the commodities are only a few thousands and 2) the commodities' documents are actually pretty small. 
 
 
 
