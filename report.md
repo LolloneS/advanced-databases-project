@@ -152,7 +152,7 @@ The rows will be thus splitted in two collections this way:
 
 |    Single collection    | Two collections |
 | :---------------------: | :-------------: |
-|          390s           |      360s       |
+|          341s           |      315s       |
 
 
 ## DB size once imported
@@ -166,10 +166,10 @@ The rows will be thus splitted in two collections this way:
 
 | Field \ Database  | Embedded | Reference |
 | ----------------- | -------- | --------- |
-| `country_or_area` | 32s      | 34s       |
-| `commodity.name`  | 42s      | TODO      |
-| `commodity.code`  | 36s      | TODO      |
-| `year`            | 39s      | TODO      |
+| `country_or_area` | 29s      | 34s       |
+| `commodity.name`  | 41s      | 0.05s      |
+| `commodity.code`  | 34s      | 0.05s      |
+| `year`            | 32s      | 32s       |
 
 
 
@@ -186,8 +186,8 @@ The rows will be thus splitted in two collections this way:
 #### 1. Find for each year the country whose Export gain is highest
 | Indexes \ DB        | Embedded | Two collections |
 | ------------------- | :------: | :-------------: |
-| **With Indexes**    |   10s    |      TODO       |
-| **Without Indexes** |   11s    |       15s       |
+| **With Indexes**    |   10s    |       10s       |
+| **Without Indexes** |   10s    |       12s       |
 
 
 
@@ -195,8 +195,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |  0.05s   |      TODO       |
-| **Without Indexes** |    6s    |       4s        |
+| **With Indexes**    |   0.3s   |       4s        |
+| **Without Indexes** |    5s    |       5s        |
 
 
 
@@ -204,8 +204,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   14s    |      TODO       |
-| **Without Indexes** |   15s    |       14s       |
+| **With Indexes**    |   12s    |       12s       |
+| **Without Indexes** |   13s    |       13s       |
 
 
 
@@ -213,8 +213,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   0.5s   |      TODO       |
-| **Without Indexes** |    6s    |       9s        |
+| **With Indexes**    |   0.7s   |       1s        |
+| **Without Indexes** |    5s    |       8s        |
 
 
 
@@ -240,8 +240,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   TODO   |      TODO       |
-| **Without Indexes** |   TODO   |      TODO       |
+| **With Indexes**    |   0.3s   |      0.8s       |
+| **Without Indexes** |    5s    |       4s        |
 
 
 
@@ -249,8 +249,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   TODO   |      TODO       |
-| **Without Indexes** |   TODO   |      TODO       |
+| **With Indexes**    |    10s   |      0.3s       |
+| **Without Indexes** |    10s   |       1s        |
 
 
 
