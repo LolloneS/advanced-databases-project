@@ -73,9 +73,9 @@ Every document represents a single trade.
     },
  	"trade_details" : {
         "flow" : "Export",
-        "weight_kg" : "2339",
-        "trade_usd" : "6088",
-        "quantity" : "51",
+        "weight_kg" : 2339,
+        "trade_usd" : 6088,
+        "quantity" : 51,
         "quantity_name" : "Number of items"
     }
 }    
