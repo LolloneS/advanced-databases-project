@@ -166,10 +166,10 @@ The rows will be thus splitted in two collections this way:
 
 | Field \ Database  | Embedded | Reference |
 | ----------------- | -------- | --------- |
-| `country_or_area` | 30s      | 30s       |
-| `commodity.name`  | 41s      | 0.04s     |
-| `commodity.code`  | 35s      | 0.04s     |
-| `year`            | 33s      | 32s       |
+| `country_or_area` | 24s      | 20s       |
+| `commodity.name`  | 34s      | 0.02s     |
+| `commodity.code`  | 25s      | 0.02s     |
+| `year`            | 40s      | 26s       |
 
 
 
@@ -186,8 +186,8 @@ The rows will be thus splitted in two collections this way:
 #### 1. Find for each year the country whose Export gain is highest
 | Indexes \ DB        | Embedded | Two collections |
 | ------------------- | :------: | :-------------: |
-| **With Indexes**    |   10s    |       10s       |
-| **Without Indexes** |   13s    |       11s       |
+| **With Indexes**    |   9.9s   |       8.17s       |
+| **Without Indexes** |   11.0s  |       13.2s       |
 
 
 
@@ -195,8 +195,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   0.3s   |       4s        |
-| **Without Indexes** |    5s    |       5s        |
+| **With Indexes**    |  0.12s   |       3.2s      |
+| **Without Indexes** |  6.2s    |       3.8s      |
 
 
 
@@ -204,8 +204,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   12s    |       12s       |
-| **Without Indexes** |   12s    |       13s       |
+| **With Indexes**    |   12.0s    |       11.0s   |
+| **Without Indexes** |   13.0s    |       15.1s   |
 
 
 
@@ -213,8 +213,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   0.7s   |       1s        |
-| **Without Indexes** |    5s    |       8s        |
+| **With Indexes**    |   0.6s   |       0.7s      |
+| **Without Indexes** |   5.0s   |       7.2s      |
 
 
 
@@ -222,17 +222,17 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |    3s    |       4s        |
-| **Without Indexes** |    12s   |       15s       |
+| **With Indexes**    |   2.5s   |      2.7s      |
+| **Without Indexes** |   13.6s  |      12.5s     |
 
 
 
 #### 6. Find the most expensive trade for every year and for each country 
 
-| Indexes \ DB        | Embedded | Two collections |
+|    Indexes \ DB     | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   TODO   |      TODO       |
-| **Without Indexes** |   TODO   |      TODO       |
+|  **With Indexes**   |   15.6s   | More than 30 minutes|
+| **Without Indexes** |   16.3s   | More than 30 minutes|
 
 
 
@@ -240,8 +240,8 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   0.3s   |      0.8s       |
-| **Without Indexes** |    5s    |       4s        |
+| **With Indexes**    |   0.1s   |      0.5s       |
+| **Without Indexes** |   4.9s   |      3.9s       |
 
 
 
@@ -249,15 +249,16 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |    10s   |      0.5s       |
-| **Without Indexes** |    10s   |      0.3s       |
+| **With Indexes**    |   6.5s   |      0.07s     |
+| **Without Indexes** |   8.3s   |      0.1s      |
 
 
 
 ## Conclusions
 As we can see, the queries' execution times are similar given the two structures adopted.
 The embedded structure usually performs slightly better because of the time saved by avoiding the use `lookup` to "join" documents taken from two different collections.
-The structure using references, on the other hand, performs way better when only data about the commodities is analyzed, because 1) the commodities are only a few thousands and 2) the commodities' documents are actually pretty small. 
+The structure using references, on the other hand, performs way better when only data about the commodities is analyzed, because 1) the commodities are only a few thousands and 2) the commodities' documents are pretty small. Also, queries in which filtering some commodities is required often perform better using the reference structure because the "preprocessing" (i.e. only keeping few commodities) greatly speeds up the lookup between the two collections. 
+In one case (query #6) we can appreciate how well the embedded structure performs when lots of joins are required: this is a clear example of how important it is to choose the right document structure when modeling the dataset.
 
 
 

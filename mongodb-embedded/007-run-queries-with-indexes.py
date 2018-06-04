@@ -11,7 +11,7 @@ def create_trades_indexes():
     parent_folder = join(dirname(dirname(abspath(__file__))))
     global_names = json.load(open(join(parent_folder, "globals.json")))
     results = open(join(parent_folder, "results.txt"), 'a')
-    results.write("Running queries using references and indexes \n")
+    results.write("Running queries using embedded and indexes \n")
     db = client[global_names["DB_NAME"]]
     trades = db.trades
     fields_to_index = ('year', 'country_or_area', 'commodity.name', 'commodity.code')

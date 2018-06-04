@@ -12,7 +12,7 @@ def run_queries():
     queries_folder = realpath(join(parent_folder, 'queries'))
     global_names = json.load(open(join(parent_folder, "globals.json")))
     results = open(join(parent_folder, "results.txt"), 'a')
-    results.write("Running queries using references and no indexes \n")
+    results.write("Running queries using embedded and no indexes \n")
     queries = listdir(queries_folder)
     queries.sort()
     DB_NAME = global_names["DB_NAME"]

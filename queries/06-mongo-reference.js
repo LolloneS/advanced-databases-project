@@ -1,5 +1,8 @@
 // 6. Find the most expensive trade for every year and for each country
 
+/*
+
+var before = new Date();
 printjson(db.commodities_ref.aggregate([
     {
         $lookup : {
@@ -8,6 +11,9 @@ printjson(db.commodities_ref.aggregate([
             foreignField : "comm_code",
             as : "commodities_trades"
         }
+    },
+    {
+        $unwind : "$commodities_trades"
     },
     {
         $group : {
@@ -25,4 +31,7 @@ printjson(db.commodities_ref.aggregate([
             "_id.year" : 1
         }
     }
-])['_batch'])
+])['_batch']);
+var after = new Date();
+print (after-date)
+*/
