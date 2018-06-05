@@ -6,7 +6,10 @@
 In this report I will compare the performances of a MongoDB database which uses some collections linked with references versus a MongoDB database using a one-collection embedded-document structure, whilst working with a huge dataset (~1GB, 8+ million rows) representing trades statistics for many countries, with and without indexes.
 
 ## Dataset
-[Global Commodity Trade Statistics](https://www.kaggle.com/unitednations/global-commodity-trade-statistics) by [United Nations](https://www.kaggle.com/unitednations)
+[Global Commodity Trade Statistics](https://www.kaggle.com/unitednations/global-commodity-trade-statistics) by [United Nations](https://www.kaggle.com/unitednations).
+
+I chose this dataset because it allows me to work with a huge amount of data in order to try and test how well the reference and the embedded structures perform while working with lots of data.
+The size of the dataset also lets me clearly see how much indexes impact on performance.
 
 ### Fields
 The dataset fields are:
@@ -91,7 +94,7 @@ Every document represents a single trade.
 
 Structuring the database using more than one collection lets us divide the *commodities* from the rest of the data regarding the trades, giving us the advantage of saving space - since many commodities are repeated thousands of times over the dataset's millions of rows
 
-The rows will be thus splitted in two collections this way:
+The rows of the dataset will be thus splitted in two collections this way:
 
 1. **trades**
 
@@ -152,7 +155,7 @@ The rows will be thus splitted in two collections this way:
 
 |    Single collection    | Two collections |
 | :---------------------: | :-------------: |
-|         ~350s           |     ~320s       |
+|         ~234s           |     ~219s       |
 
 
 ## DB size once imported
@@ -164,12 +167,12 @@ The rows will be thus splitted in two collections this way:
 
 ## Time spent to create the indexes
 
-| Field \ Database  | Embedded | Reference  |
-| ----------------- | -------- | ---------- |
-| `country_or_area` | 24s      | 20s        |
-| `commodity.name`  | 34s      | 0.02s      |
-| `commodity.code`  | 25s      | 20s + 0.02s|
-| `year`            | 40s      | 26s        |
+| Field \ Database  |  Embedded  |   Reference  |
+| ----------------- | ---------- | ------------ |
+| `country_or_area` | 16.9s      | 16.8s        |
+| `commodity.name`  | 25.2s      | 0.02s        |
+| `commodity.code`  | 18.5s      | 17.9s + 0.02s|
+| `year`            | 19.0s      | 18.5s        |
 
 
 
@@ -182,13 +185,13 @@ The rows will be thus splitted in two collections this way:
 
 
 
-
 #### 1. Find for each year the country whose Export gain is highest
 | Indexes \ DB        | Embedded | Two collections |
 | ------------------- | :------: | :-------------: |
-| **With Indexes**    |   9.9s   |       8.17s       |
-| **Without Indexes** |   11.0s  |       13.2s       |
+| **With Indexes**    |   7.0s   |       6.8s       |
+| **Without Indexes** |   7.2s   |       7.6s       |
 
+The query is the same on the two collections, thus the difference is insignificant.
 
 
 #### 2. For each year, find the country which traded more kilograms of *010511*
@@ -196,7 +199,9 @@ The rows will be thus splitted in two collections this way:
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
 | **With Indexes**    |  0.1s    |       0.1s      |
-| **Without Indexes** |  6.2s    |       3.8s      |
+| **Without Indexes** |  3.7s    |       3.3s      |
+
+The query is the same on the two collections, thus the difference is insignificant.
 
 
 
@@ -204,8 +209,10 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   12.0s    |       9.8s   |
-| **Without Indexes** |   13.0s    |       15.1s   |
+| **With Indexes**    |   8.9s    |       9.0s   |
+| **Without Indexes** |   9.0s    |       9.0s   |
+
+The query is the same on the two collections, thus the difference is insignificant.
 
 
 
@@ -213,44 +220,51 @@ The rows will be thus splitted in two collections this way:
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   0.6s   |       0.1s      |
-| **Without Indexes** |   5.0s   |       7.2s      |
+| **With Indexes**    |   0.4s   |       0.09s      |
+| **Without Indexes** |   3.4s   |       6.0s      |
 
+The query without indexes is faster in the embedded structure because there is no need for a join (`lookup`) which takes a lot of time if there are no indexes. On the other hand, the query with indexes runs faster in the reference structure because the documents are smaller and few joins are required.
 
 
 #### 5. Find all the countries that have not traded *010600* or *010519* in 1998
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   2.5s   |      2.4s      |
-| **Without Indexes** |   13.6s  |      12.5s     |
+| **With Indexes**    |   2.0s   |      2.4s      |
+| **Without Indexes** |   8.5s  |      10.3s     |
 
+The query runs slightly faster in the embedded structure because of the time saved by not joining two collections.
 
 
 #### 6. Find the most expensive trade for every year and for each country 
 
 |    Indexes \ DB     | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-|  **With Indexes**   |   15.6s   | More than 30 minutes|
-| **Without Indexes** |   16.3s   | More than 30 minutes|
+|  **With Indexes**   |   11.3s   | More than 30 minutes|
+| **Without Indexes** |   11.2s   | More than 30 minutes|
 
+The query in the reference structure takes more than 30 minutes (more than 1 hour, actually) because of all the time wasted joining and grouping the two collections. On the other hand, in the embedded structure there are no joins to be made and the query only requires a linear scan, thus the time required is low. Indexes don't improve the situation since the vast majority of the time is spent scanning files (which are made heavier by the indexes). The only way to get the answer is to scan all files.
 
 
 #### 7. Find out whether Italy traded more goats than Canada
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   0.1s   |      0.1s       |
-| **Without Indexes** |   4.9s   |      3.9s       |
+| **With Indexes**    |   0.1s   |      0.06s       |
+| **Without Indexes** |   3.7s   |      2.9s       |
 
+The query is faster in the reference structure because the documents to be scanned are smaller and they are pre-filtered. Anyway, the time wasted by joining the two collections makes the difference less significant.
 
 
 #### 8. Find all the categories
 
 | Indexes \ DB        | Embedded | Two collections |
 | :-----------------: | :------: | :-------------: |
-| **With Indexes**    |   6.5s   |      0.05s     |
-| **Without Indexes** |   8.3s   |      0.1s      |
+| **With Indexes**    |   4.8s   |      0.06s     |
+| **Without Indexes** |   4.9s   |      0.07s      |
+
+The query is way faster in the reference structure because it contains few documents which are also very small.
+
 
 
 
@@ -258,9 +272,9 @@ The rows will be thus splitted in two collections this way:
 As we can see, the queries' execution times are similar given the two structures adopted.
 The embedded structure usually performs slightly better because of the time saved by avoiding the use `lookup` to "join" documents taken from two different collections.
 
-The structure using references, on the other hand, performs way better when only data about the commodities is analyzed, because 1) the commodities are only a few thousands and 2) the commodities' documents are pretty small. Also, queries in which filtering some commodities is required often perform better using the reference structure because the "preprocessing" (i.e. only keeping few commodities) greatly speeds up the lookup between the two collections. 
+The structure using references, on the other hand, performs better when only data about the commodities is analyzed, because 1) the commodities are only a few thousands and 2) the commodities' documents are pretty small. Also, queries in which filtering some commodities is required often perform better using the reference structure because the "pre-filtering" (i.e. only keeping few commodities) greatly speeds up the lookup between the two collections. 
 
-In one case (query #6) we can appreciate how well the embedded structure performs when lots of joins are required: this is a clear example of how important it is to choose the right document structure when modeling the dataset.
+In one case (query #6) we can appreciate how well the embedded structure performs when lots of joins are required: this is a clear example of how important it is to choose the right document structure when modeling the dataset. The query couldn't complete in more than one hour using the reference structure, while it took less than 15 seconds with the embedded one!
 
 
 

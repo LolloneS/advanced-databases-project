@@ -14,8 +14,12 @@ printjson(db.trades_ref.aggregate(
         },
         {
             $group : {
-                "_id" : {year : "$_id.year"},
-                "money_traded" : {$max : "$money_aggregated"} 
+                "_id" : {
+                    year : "$_id.year"
+                },
+                "money_traded" : {
+                    $max : "$money_aggregated"
+                } 
             }
         },
         {

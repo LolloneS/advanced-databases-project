@@ -27,7 +27,9 @@ printjson(db.commodities_ref.aggregate(
     [
         {
             $match : {
-                "name" : {$in : ["Sheep, live", "Goats, live"]}
+                "name" : {
+                    $in : ["Sheep, live", "Goats, live"]
+                }
             }
         },
         {
@@ -57,7 +59,7 @@ printjson(db.commodities_ref.aggregate(
             $group: {
                 "_id" : "$name",
                 "quantity" : {
-                    "$sum" : "$quantity"
+                    $sum : "$quantity"
                 }
             }
         }

@@ -61,19 +61,20 @@ printjson(db.commodities_ref.aggregate(
                     country_or_area : "$country_or_area", 
                     year : "$year"
                 },
-                "total_weight" : {$sum : "$weight_kg"}
-            }
-        },
-        {
-            $sort : {
-                "total_weight" : 1
+                "total_weight" : {
+                    $sum : "$weight_kg"
+                }
             }
         },
         {
             $group : {
                 "_id" : "$_id.year",
-                "most_kgs_country" : {$last : "$_id.country_or_area"},
-                "kgs" : {$last : "$total_weight"}
+                "most_kgs_country" : {
+                    $last : "$_id.country_or_area"
+                },
+                "kgs" : {
+                    $max : "$total_weight"
+                }
             }
         },
         {

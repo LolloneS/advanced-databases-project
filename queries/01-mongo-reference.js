@@ -9,8 +9,13 @@ printjson(db.trades_ref.aggregate(
         },
         {
             $group : {
-                "_id" : {country_or_area : "$country_or_area", year : "$year"},
-                "total_cash" : {$sum : "$trade_details.trade_usd"}
+                "_id" : {
+                    country_or_area : "$country_or_area", 
+                    year : "$year"
+                },
+                "total_cash" : {
+                    $sum : "$trade_details.trade_usd"
+                }
             }
         },
         {
@@ -21,8 +26,12 @@ printjson(db.trades_ref.aggregate(
         {
             $group : {
                 "_id" : "$_id.year",
-                "richest_country_name" : {$last : "$_id.country_or_area"},
-                "richest_country_cash" : {$last : "$total_cash"}
+                "richest_country_name" : {
+                    $last : "$_id.country_or_area"
+                },
+                "richest_country_cash" : {
+                    $last : "$total_cash"
+                }
             }
         },
         {

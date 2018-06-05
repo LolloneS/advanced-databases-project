@@ -5,7 +5,9 @@ printjson(db.trades.aggregate(
         {
             $match : {
                 "country_or_area" : "Canada",
-                "commodity.name" : {$in : ["Sheep, live", "Goats, live"]}
+                "commodity.name" : {
+                    $in : ["Sheep, live", "Goats, live"]
+                }
             }
         },
         {
@@ -19,7 +21,7 @@ printjson(db.trades.aggregate(
             $group: {
                 "_id" : "$name",
                 "quantity" : {
-                    "$sum" : "$quantity"
+                    $sum : "$quantity"
                 }      
             }
         } 
