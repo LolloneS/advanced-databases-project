@@ -1,8 +1,5 @@
 // 6. Find the most expensive trade for every year and for each country
-
 /*
-
-var before = new Date();
 printjson(db.commodities_ref.aggregate([
     {
         $lookup : {
@@ -32,6 +29,5 @@ printjson(db.commodities_ref.aggregate([
         }
     }
 ])['_batch']);
-var after = new Date();
-print (after-date)
+
 */

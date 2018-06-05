@@ -16,7 +16,8 @@ def create_trades_indexes():
     trades_ref = db[global_names["COLLECTION_NAME_REF_1"]]
     commodities_ref = db[global_names["COLLECTION_NAME_REF_2"]]
     fields_to_index = {
-        "trades_ref" : ['year', 'country_or_area'],
+        # aggiungere indice su comm_code in trades_ref?
+        "trades_ref" : ['year', 'country_or_area', 'comm_code'],
         "commodities_ref" : ['name', 'code']
     }
 

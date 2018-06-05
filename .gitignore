@@ -3,3 +3,4 @@ neo4j/
 *__pycache__*
 results.txt
 log.txt
+*.pyc
