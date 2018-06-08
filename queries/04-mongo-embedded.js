@@ -18,12 +18,19 @@ printjson(db.trades.aggregate(
             }
         },
         {
-            $group: {
+            $group : {
                 "_id" : "$name",
                 "quantity" : {
                     $sum : "$quantity"
                 }      
             }
-        } 
+        } ,
+        {
+            $project : {
+                "_id" : 0,
+                "name" : "$_id",
+                "quantity" : "$quantity"
+            }
+        }
     ]
 )['_batch'])

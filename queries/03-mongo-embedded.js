@@ -29,6 +29,13 @@ printjson(db.trades.aggregate(
         },
         {
             $limit : 1
+        },
+        {
+            $project : {
+                "_id" : 0,
+                "year" : "$_id.year",
+                "money_traded" : 1
+            }
         }
     ]
 )['_batch'])

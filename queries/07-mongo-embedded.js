@@ -18,5 +18,12 @@ printjson(db.trades.aggregate([
                 $sum : "$trade_details.quantity"
             }
         }
+    },
+    {
+        $project : {
+            "_id" : 0,
+            "country_or_area" : "$_id.country_or_area",
+            "number_of_sheeps" : 1
+        }
     }
 ])['_batch'])

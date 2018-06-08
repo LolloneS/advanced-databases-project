@@ -16,5 +16,13 @@ printjson(db.trades.aggregate([
         $sort : {
             "_id.year" : 1
         }
+    },
+    {
+        $project : {
+            "_id" : 0,
+            "country_or_area" : "$_id.country_or_area",
+            "year" : "$_id.year",
+            "most_expensive_trade_dollars" : "$max_value"
+        }
     }
 ])['_batch'])

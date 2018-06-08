@@ -62,6 +62,13 @@ printjson(db.commodities_ref.aggregate(
                     $sum : "$quantity"
                 }
             }
+        },
+        {
+            $project : {
+                "_id" : 0,
+                "name" : "$_id",
+                "quantity" : "$quantity"
+            }
         }
     ]
 )['_batch'])
