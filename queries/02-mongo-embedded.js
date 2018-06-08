@@ -19,20 +19,27 @@ printjson(db.trades.aggregate(
             }
         },
         {
+            $sort : {
+                "total_weight" : 1
+            }
+        },
+        {
             $group : {
                 "_id" : "$_id.year",
-                "most_kgs_country" : {$last : "$_id.country_or_area"},
-                "kgs" : {$max : "$total_weight"}
+                "most_kgs_country" : {
+                    $last : "$_id.country_or_area"
+                },
+                "kgs" : {
+                    $last : "$total_weight"
+                }
             }
         },
         {
             $project : {
                 "_id" : 0,
                 "year" : "$_id",
-                "most_kilos" : {
-                    "country" : "$most_kgs_country",
-                    "kilograms" : "$kgs"
-                }
+                "country" : "$most_kgs_country",
+                "kilograms" : "$kgs"
             }
         },
         {

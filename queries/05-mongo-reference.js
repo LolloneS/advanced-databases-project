@@ -1,7 +1,5 @@
 // 5. Find all the countries that have not traded *010600* or *010519* in 1998
 
-// 5. Find all the countries that have not traded *010600* or *010519* in 1998
-
 var countries_that_traded = (db.commodities_ref.aggregate([
     {
         $match : {
