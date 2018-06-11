@@ -66,22 +66,23 @@ Every document represents a single trade.
 
 ```js
 {
-    "_id" : ObjectId("5b06df5f0cea1a1aa46b4ce2"),
- 	"country_or_area" : "Afghanistan",
- 	"year" : "2016",
- 	"commodity" : {
-        "name" : "Sheep, live",
-        "code" : "010410",
-        "category" : "01_live_animals"
-    },
- 	"trade_details" : {
-        "flow" : "Export",
-        "weight_kg" : 2339,
-        "trade_usd" : 6088,
-        "quantity" : 51,
-        "quantity_name" : "Number of items"
-    }
-}    
+	"_id" : ObjectId("5b1d661f6f185a3946d5c52c"),
+	"trade_details" : {
+		"weight_kg" : 2339,
+		"quantity_name" : "Number of items",
+		"flow" : "Export",
+		"trade_usd" : 6088,
+		"quantity" : 51
+	},
+	"commodity" : {
+		"category" : "01_live_animals",
+		"code" : "010410",
+		"name" : "Sheep, live"
+	},
+	"country_or_area" : "Afghanistan",
+	"year" : "2016"
+}
+   
 ```
 
 
@@ -123,17 +124,17 @@ The rows of the dataset will be thus splitted in two collections this way:
 **Trade**
 ```js
 {
-   "_id":ObjectId("5b081ed80cea1a1a64ca495b"),
-   "country_or_area":"Afghanistan",
-   "year":"2016",
-   "comm_code":"010410",
-   "trade_details":{
-      "flow":"Export",
-      "weight_kg":2339,
-      "trade_usd":6088,
-      "quantity":51,
-      "quantity_name":"Number of items"
-   }
+	"_id" : ObjectId("5b1d67f86f185a3a2c8ee0ce"),
+	"trade_details" : {
+		"weight_kg" : 2339,
+		"quantity_name" : "Number of items",
+		"flow" : "Export",
+		"trade_usd" : 6088,
+		"quantity" : 51
+	},
+	"comm_code" : "010410",
+	"country_or_area" : "Afghanistan",
+	"year" : "2016"
 }
 ```
 
@@ -143,11 +144,12 @@ The rows of the dataset will be thus splitted in two collections this way:
 
 ```js
 {
-   "_id":ObjectId("5b0820620cea1a1a6447cdab"),
-   "name":"Oak or chestnut tanning extract",
-   "code":"320130",
-   "category":"32_tanning_dyeing_extracts_tannins_derivs_pigments_et"
+	"_id" : ObjectId("5b1d68d86f185a3a2c0c651e"),
+	"category" : "15_animal_vegetable_fats_and_oils_cleavage_products_et",
+	"code" : "151930",
+	"name" : "Industrial fatty alcohols"
 }
+
 ```
 
 
